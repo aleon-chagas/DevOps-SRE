@@ -1,0 +1,87 @@
+---
+- name: Install Docker CE 20.10 via official script
+  hosts: all
+  become: true
+
+  vars:
+    docker_install_script_url: "https://get.docker.com"
+    docker_script_path: "/tmp/install-docker-20.10.sh"
+
+  tasks:
+    - name: Usage notice
+      debug:
+        msg: "ATTENTION: This playbook must only be used by authorized personnel. Improper use may cause system problems."
+
+    - name: Ensure basic dependencies are installed
+      package:
+        name:
+          - curl
+          - ca-certificates
+          - gnupg
+        state: present
+
+    - name: Download Docker install script
+      ansible.builtin.get_url:
+        url: "{{ docker_install_script_url }}"
+        dest: "{{ docker_script_path }}"
+        mode: '0755'
+
+    - name: Execute Docker install script
+      ansible.builtin.shell: |
+        sh {{ docker_script_path }}
+      args:
+        creates: /usr/bin/docker
+
+    - name: Enable and start Docker service
+      ansible.builtin.systemd:
+        name: docker
+        enabled: yes
+        state: started
+
+    - name: Add current user to docker group (optional)
+      ansible.builtin.user:
+        name: "{{ ansible_user | default('ubuntu') }}"
+        groups: docker
+        append: yes
+      when: ansible_user is defined
+
+    - name: Get latest kubectl stable version
+      ansible.builtin.shell: "curl -sSL https://dl.k8s.io/release/stable.txt"
+      register: kubectl_latest_version
+      changed_when: false
+
+    - name: Download kubectl binary
+      ansible.builtin.get_url:
+        url: "https://dl.k8s.io/release/{{ kubectl_latest_version.stdout }}/bin/linux/amd64/kubectl"
+        dest: /usr/local/bin/kubectl
+        mode: '0755'
+        force: yes
+
+    - name: Ensure kubectl is executable
+      ansible.builtin.file:
+        path: /usr/local/bin/kubectl
+        mode: '0755'
+        state: file
+
+    - name: Verify kubectl is installed
+      ansible.builtin.shell: kubectl version --client --output=yaml
+      register: kubectl_version
+      changed_when: false
+
+    - name: Show kubectl version
+      ansible.builtin.debug:
+        var: kubectl_version.stdout
+
+    - name: Download K9s package
+      get_url:
+        url: https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.deb
+        dest: /tmp/k9s_linux_amd64.deb
+
+    - name: Install K9s
+      apt:
+        deb: /tmp/k9s_linux_amd64.deb
+
+    - name: Remove K9s package
+      file:
+        path: /tmp/k9s_linux_amd64.deb
+        state: absent

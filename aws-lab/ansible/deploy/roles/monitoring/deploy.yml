@@ -1,0 +1,42 @@
+---
+- name: Deploy Monitoring Stack (Prometheus + Grafana)
+  hosts: master
+  become_user: ubuntu
+  vars:
+    monitoring_namespace: monitoring
+
+  tasks:
+    - name: Create monitoring namespace
+      shell: kubectl create namespace {{ monitoring_namespace }} --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: Verify Helm installation
+      shell: helm version --short
+
+    - name: Add Prometheus Helm repo
+      shell: |
+        helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+        helm repo update
+
+    - name: Install Prometheus Stack
+      shell: |
+        helm upgrade --install prometheus prometheus-community/kube-prometheus-stack \
+          --namespace {{ monitoring_namespace }} \
+          --set prometheus.service.type=NodePort \
+          --set prometheus.service.nodePort=30900 \
+          --set grafana.service.type=NodePort \
+          --set grafana.service.nodePort=30300 \
+          --set grafana.adminPassword=admin123
+
+    - name: Wait for monitoring pods
+      shell: kubectl wait --for=condition=ready pod -l app.kubernetes.io/name=prometheus -n {{ monitoring_namespace }} --timeout=300s
+
+    - name: Display monitoring info
+      debug:
+        msg: |
+          Monitoring Stack Deployed!
+
+          Prometheus: http://{{ ansible_default_ipv4.address }}:30900
+          Grafana: http://{{ ansible_default_ipv4.address }}:30300
+          Grafana Login: admin / admin123
+
+          Weather App Metrics: http://{{ ansible_default_ipv4.address }}:30080/metrics

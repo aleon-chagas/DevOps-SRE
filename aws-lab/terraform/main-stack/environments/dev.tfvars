@@ -1,0 +1,30 @@
+# Configurações do ambiente de desenvolvimento
+environment = "dev"
+
+# Configurações das instâncias EC2
+instance_type = "t3.micro"
+instance_count = 2
+associate_public_ip = true
+
+# Configurações do Lambda Scheduler
+lambda_schedule_expression = "cron(0 18 * * ? *)"  # 18:00 UTC diariamente
+target_hour = "18"
+timezone = "America/Sao_Paulo"
+
+# Tags padrão para todos os recursos
+tags = {
+  Environment = "dev"
+  Project     = "devops"
+  Schedule    = "stop-daily-18h"
+  ManagedBy   = "terraform"
+  Owner       = "devops-team"
+  CostCenter  = "development"
+}
+
+# Configurações de monitoramento
+enable_detailed_monitoring = true
+cloudwatch_log_retention = 7  # dias
+
+# Configurações de rede (ajustar conforme output do network-stack)
+# vpc_id = "vpc-xxxxxxxxx"  # Descomente e ajuste após criar network-stack
+# subnet_ids = ["subnet-xxxxxxxxx", "subnet-yyyyyyyyy"]

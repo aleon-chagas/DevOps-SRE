@@ -1,0 +1,10 @@
+mysql_root_password: p2ssw0rd
+mysql_databases:
+  - name: notes
+    encoding: latin1
+    collation: latin1_general_ci
+mysql_users:
+  - name: notesapp
+    host: "%"
+    password: p2ssw0rd
+    priv: "notes.*:ALL"

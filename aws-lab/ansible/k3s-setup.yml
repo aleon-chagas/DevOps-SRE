@@ -1,0 +1,16 @@
+---
+# Playbook completo para setup do cluster K3s
+- name: Configurar aplicações básicas Linux
+  import_playbook: deploy/roles/apps-linux/deploy.yaml
+
+- name: Instalar Docker e kubectl
+  import_playbook: deploy/roles/docker-tools/deploy.yml
+
+- name: Configurar cluster K3s
+  import_playbook: deploy/roles/k3s-cluster/deploy.yml
+
+- name: Deploy Weather App
+  import_playbook: playbooks/weather-app.yml
+
+- name: Deploy Monitoring Stack
+  import_playbook: deploy/roles/monitoring/deploy.yml

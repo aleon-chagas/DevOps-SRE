@@ -1,0 +1,39 @@
+---
+- name: Update and upgrade apt packages
+  hosts: all
+  become: true
+  tasks:
+    - name: Usage notice
+      debug:
+        msg: "ATTENTION: This playbook must only be used by authorized personnel. Improper use may cause system problems."
+
+    - name: Update and upgrade all apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+      register: apt_upgrade_result
+      retries: 3
+      delay: 10
+
+    - name: Installing Linux Apps
+      apt:
+        name: "{{ item }}"
+        install_recommends: yes
+        state: present
+      loop:
+        - vim
+        - git
+        - htop
+        - curl
+        - wget
+        - ncdu
+        - tree
+        - python3-pip
+        - mlocate
+        - mtr
+        - nmap
+        - neofetch
+        - net-tools
+        - network-manager
+        - gparted
+        - resolvconf

@@ -1,0 +1,112 @@
+---
+- name: Deploy Weather App to Kubernetes
+  hosts: all
+  become: true
+  vars:
+    app_name: weather-app
+    app_version: "1.0.0"
+
+  tasks:
+    - name: Create weather app directory
+      file:
+        path: /home/ubuntu/weather-app
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755'
+
+    - name: Copy backend files
+      copy:
+        src: "../../weather-app/backend/"
+        dest: "/home/ubuntu/weather-app/backend/"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Copy frontend files
+      copy:
+        src: "../../weather-app/frontend/"
+        dest: "/home/ubuntu/weather-app/frontend/"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Copy k8s manifests
+      copy:
+        src: "../../weather-app/k8s-manifests/"
+        dest: "/home/ubuntu/weather-app/k8s-manifests/"
+        owner: ubuntu
+        group: ubuntu
+        mode: '0644'
+
+    - name: Build backend Docker image
+      docker_image:
+        name: weather-api
+        tag: "{{ app_version }}"
+        build:
+          path: /home/ubuntu/weather-app/backend
+        source: build
+        state: present
+
+    - name: Build frontend Docker image
+      docker_image:
+        name: weather-frontend
+        tag: "{{ app_version }}"
+        build:
+          path: /home/ubuntu/weather-app/frontend
+        source: build
+        state: present
+
+- name: Deploy to Kubernetes
+  hosts: master
+  become: true
+  vars:
+    app_name: weather-app
+
+  tasks:
+    - name: Apply namespace
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/namespace.yaml
+      become_user: ubuntu
+
+    - name: Apply configmap
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/configmap.yaml
+      become_user: ubuntu
+
+    - name: Apply secrets
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/secrets.yaml
+      become_user: ubuntu
+
+    - name: Apply Redis
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/redis.yaml
+      become_user: ubuntu
+
+    - name: Apply backend
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/backend.yaml
+      become_user: ubuntu
+
+    - name: Apply frontend
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/frontend.yaml
+      become_user: ubuntu
+
+    - name: Apply ingress
+      shell: kubectl apply -f /home/ubuntu/weather-app/k8s-manifests/ingress.yaml
+      become_user: ubuntu
+
+    - name: Wait for pods to be ready
+      shell: kubectl wait --for=condition=ready pod -l app.kubernetes.io/part-of=weather-app -n weather-app --timeout=300s
+      become_user: ubuntu
+
+    - name: Get service info
+      shell: kubectl get svc -n weather-app weather-app-nodeport -o jsonpath='{.spec.ports[0].nodePort}'
+      register: nodeport
+      become_user: ubuntu
+
+    - name: Display access information
+      debug:
+        msg: |
+          Weather App deployed successfully!
+          Access URL: http://{{ ansible_default_ipv4.address }}:{{ nodeport.stdout }}
+
+          Check status:
+          kubectl get pods -n weather-app
+          kubectl get svc -n weather-app

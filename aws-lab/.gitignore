@@ -1,0 +1,67 @@
+# AWS Lab Specific .gitignore
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate*
+terraform.tfvars
+backend.tfvars
+*.tfplan
+*.tfplan.json
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Ansible
+ansible.log
+retry-files/
+*.retry
+vault-password
+ssh.config
+
+# SSH Keys
+*.pem
+*.key
+*.crt
+
+# Environment Files
+.env
+.env.local
+.env.production
+secrets.yml
+
+# AWS Credentials
+.aws/credentials
+.aws/config
+
+# Weather App
+weather-app/.env
+weather-app/build/
+weather-app/dist/
+weather-app/node_modules/
+
+# Docker
+*.tar
+*.tar.gz
+docker-compose.override.yml
+
+# Logs
+*.log
+logs/
+
+# Backups
+devops-backups/
+*.bak
+*.backup
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

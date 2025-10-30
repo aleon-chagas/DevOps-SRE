@@ -1,0 +1,14 @@
+# Exemplo de configuração do backend remoto# Example backend configuration for terraform init -backend-config
+
+# Renomeie para backend.tfvars e ajuste os valores# Replace the values below with your real backend resources if you need to override.
+
+bucket = "devops-sre-aleon"
+
+bucket         = "seu-bucket-name"           # Nome do seu bucket S3key    = "main-stack/terraform.tfstate"
+
+key            = "main-stack/terraform.tfstate"region = "us-east-1"
+
+region         = "sua-região"                # ex: us-east-1dynamodb_table = "devops-aws-remote-backend-locks"
+
+encrypt        = true
+dynamodb_table = "sua-tabela-dynamo"        # Nome da sua tabela DynamoDB

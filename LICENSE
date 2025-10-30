@@ -1,0 +1,88 @@
+MIT License
+
+Copyright (c) 2025-2026 Aleon Chagas
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+## DevOps/SRE Labs - Infraestrutura Completa
+
+**Desenvolvido por:** Aleon Chagas
+**Propósito:** Uso educacional e treinamentos profissionais
+**Versão:** 2.0.0
+
+### 📋 Conteúdo do Repositório
+
+**AWS Lab:**
+- Infraestrutura AWS com Terraform
+- Automação com Ansible
+- Cluster Kubernetes K3s
+- Aplicação Weather Dashboard
+- Monitoramento Prometheus/Grafana
+- Scripts de deploy/destroy automatizados
+
+**Vagrant Lab:**
+- Ambiente local com VirtualBox
+- Labs individuais (K3s, Jenkins, Monitoring)
+- Mesma aplicação Weather adaptada
+- Recursos compartilhados
+- Desenvolvimento sem custos
+
+**Recursos Compartilhados:**
+- Aplicação Weather Dashboard base
+- Roles Ansible reutilizáveis
+- Scripts comuns (backup, cleanup, health-check)
+- Documentação completa
+
+### 🎓 Uso Educacional
+
+Este repositório foi criado especificamente para:
+- Treinamentos corporativos de DevOps/SRE
+- Cursos técnicos e universitários
+- Certificações em Cloud e Kubernetes
+- Workshops práticos
+- Aprendizado autodidata
+
+### 📚 Documentação
+
+- **README.md principal** - Overview completo
+- **aws-lab/README.md** - Guia do lab AWS
+- **vagrant-lab/README.md** - Guia do lab local
+- **shared-resources/README.md** - Recursos compartilhados
+- **docs/** - Material didático em PDF
+
+### 🤝 Contribuições
+
+Contribuições são bem-vindas! Por favor:
+1. Fork o repositório
+2. Crie uma branch para sua feature
+3. Teste as mudanças
+4. Envie um Pull Request
+
+### 📞 Contato
+
+**Aleon Chagas**
+Especialista DevOps/SRE
+LinkedIn: [linkedin.com/in/aleonchagas](https://linkedin.com/in/aleonchagas)
+GitHub: [github.com/aleon-chagas](https://github.com/aleon-chagas)
+
+---
+
+*Para mais informações técnicas, consulte o README.md principal.*

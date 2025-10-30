@@ -1,0 +1,65 @@
+# Vagrant Lab Specific .gitignore
+
+# Vagrant
+.vagrant/
+vagrant.log
+.vagrant.d/
+Vagrantfile.local
+
+# VirtualBox
+*.vbox-prev
+*.vdi
+*.vmdk
+
+# SSH Keys
+*.pem
+*.key
+ssh.config
+
+# Environment Files
+.env
+.env.local
+secrets.yml
+
+# Weather App
+weather-app/.env
+weather-app/build/
+weather-app/dist/
+weather-app/node_modules/
+
+# Docker
+*.tar
+*.tar.gz
+docker-compose.override.yml
+
+# Kubernetes
+kubeconfig*
+.kube/config
+
+# Logs
+*.log
+logs/
+
+# Ansible
+ansible.log
+*.retry
+vault-password
+
+# Backups
+lab-backups/
+*.bak
+*.backup
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
