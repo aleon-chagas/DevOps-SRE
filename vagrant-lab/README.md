@@ -248,4 +248,4 @@ kubectl apply -f /vagrant/weather-app/k8s-manifests/
 
 ---
 
-**💡 Lab criado por Aleon Chagas - Aprenda DevOps/SRE na AWS ou sem custos, no seu próprio ambiente local!**
+**💡 Lab criado por Aleon Chagas - Aprenda DevOps/SRE sem custos, no seu próprio ambiente local!**

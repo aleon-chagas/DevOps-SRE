@@ -19,10 +19,10 @@ Repositório completo com labs práticos de DevOps/SRE para ambientes **AWS Clou
 ### **🏗️ Arquitetura Geral**
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     DevOps/SRE Labs                            │
+│                     DevOps/SRE Labs                             │
 ├─────────────────────────────┬───────────────────────────────────┤
 │         AWS Lab             │         Vagrant Lab               │
-│    (Produção/Cloud)         │       (Local/Desenvolvimento)    │
+│    (Produção/Cloud)         │       (Local/Desenvolvimento)     │
 ├─────────────────────────────┼───────────────────────────────────┤
 │ • Terraform + AWS           │ • Vagrant + VirtualBox            │
 │ • 4x EC2 Instances          │ • VMs Locais                      │
@@ -38,25 +38,25 @@ Repositório completo com labs práticos de DevOps/SRE para ambientes **AWS Clou
 
 ```
 DevOps-SRE/
-├── aws-lab/                # 🌩️ Lab AWS Cloud
+├── aws-lab/                   # 🌩️ Lab AWS Cloud
 │   ├── terraform/             # Infrastructure as Code
 │   ├── ansible/               # Configuration Management
 │   ├── scripts/               # Deploy/Destroy automation
 │   ├── weather-app/           # Sample Application
-│   └── README.md             # Documentação AWS
-├── vagrant-lab/            # 💻 Lab Local
+│   └── README.md              # Documentação AWS
+├── vagrant-lab/               # 💻 Lab Local
 │   ├── labs/                  # Labs individuais
 │   ├── shared/                # Recursos compartilhados
 │   ├── weather-app/           # App adaptada para local
-│   └── README.md             # Documentação Vagrant
-├── shared-resources/       # 🔄 Recursos Compartilhados
+│   └── README.md              # Documentação Vagrant
+├── shared-resources/          # 🔄 Recursos Compartilhados
 │   ├── weather-app/           # Aplicação base
 │   ├── ansible-roles/         # Roles reutilizáveis
 │   └── scripts/               # Scripts comuns
-├── docs/                   # 📚 Documentação
+├── docs/                      # 📚 Documentação
 │   ├── pdfs/                  # Material didático
 │   └── guides/                # Guias práticos
-└── README.md              # Esta documentação
+└── README.md                  # Esta documentação
 ```
 
 ---
