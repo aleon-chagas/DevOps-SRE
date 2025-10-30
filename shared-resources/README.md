@@ -8,16 +8,16 @@ Recursos compartilhados entre os labs AWS e Vagrant para reutilização e consis
 
 ```
 shared-resources/
-├── weather-app/          # Aplicação base Weather Dashboard
+├── weather-app/             # Aplicação base Weather Dashboard
 │   ├── backend/             # Node.js API
 │   ├── frontend/            # React SPA
 │   ├── k8s-manifests/       # Kubernetes YAML
 │   └── docker-compose.yml   # Compose para desenvolvimento
-├── ansible-roles/        # Roles Ansible reutilizáveis
+├── ansible-roles/           # Roles Ansible reutilizáveis
 │   ├── k3s-cluster/         # Setup cluster K3s
 │   ├── monitoring/          # Prometheus + Grafana
 │   └── security/            # Configurações de segurança
-└── scripts/             # Scripts comuns
+└── scripts/                 # Scripts comuns
     ├── health-check.sh      # Verificação de saúde
     ├── backup.sh            # Backup de dados
     └── cleanup.sh           # Limpeza de recursos

@@ -256,7 +256,7 @@ aws ec2 describe-regions     # Verificar região
 
 # Terraform falha
 terraform state list         # Verificar state
-terraform refresh           # Atualizar state
+terraform refresh            # Atualizar state
 ```
 
 ### **Vagrant Lab**
